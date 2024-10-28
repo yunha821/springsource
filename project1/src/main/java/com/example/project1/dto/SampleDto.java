@@ -2,10 +2,11 @@ package com.example.project1.dto;
 
 import java.time.LocalDateTime;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
 
 @Data
+@Builder
 
 public class SampleDto {
     private Long id;
@@ -13,8 +14,4 @@ public class SampleDto {
     private String last;
     private LocalDateTime regDateTime;
 
-    public static Object builder() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'builder'");
-    }
 }
