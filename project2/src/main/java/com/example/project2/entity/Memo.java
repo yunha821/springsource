@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Memo {
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "meno_seq_gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "memo_seq_gen")
     @Id
     private Long mno;
 
