@@ -128,7 +128,8 @@ public class TeamMemberRepositoryTest {
     @Test
     public void memberAndTeamInsertTest() {
 
-        // @ ~~~~~(cascade = CascadeType.ALL) 설정이 없는 경우
+        // EntityNotFoundException: Unable to find com.example.project3.entity.Team with
+        // @~~~~~(cascade = CascadeType.ALL) 설정이 없는 경우
         Team team = Team.builder()
                 .id("team3")
                 .name("팀3")
