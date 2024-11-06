@@ -3,6 +3,8 @@ package com.example.todo.entity;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
+import com.example.mart.entitiy.item.BaseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +23,7 @@ import lombok.NoArgsConstructor;
 @SequenceGenerator(name = "todo_seq_gen", sequenceName = "todo_seq", allocationSize = 1)
 @DynamicInsert // default 값 동작
 @Entity(name = "todotbl")
-public class Todo {
+public class Todo extends BaseEntity {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "todo_seq_gen")
     @Column(name = "todo_id")
