@@ -18,12 +18,12 @@ public class BoardRepositoryTest {
     @Test
     public void insertTest() {
 
-        IntStream.rangeClosed(1, 20)
+        IntStream.rangeClosed(1, 300)
                 .forEach(i -> {
                     Board board = Board.builder()
-                            .content("게시판" + i)
-                            .title("제목" + i)
-                            .writer("작가" + i)
+                            .content("content" + i)
+                            .title("Title..." + i)
+                            .writer("user" + i)
                             .build();
                     boardRepository.save(board);
                 });
@@ -57,8 +57,28 @@ public class BoardRepositoryTest {
     // 쿼리 메소드
     @Test
     public void testTitleList() {
-        boardRepository.findByTitle("Title....").forEach(b -> System.out.println(b));
-        boardRepository.findByTitleLike("Title").forEach(b -> System.out.println(b));
+        // boardRepository.findByTitle("Title...4").forEach(b -> System.out.println(b));
+        // boardRepository.findByTitleLike("Title").forEach(b -> System.out.println(b));
+        // boardRepository.findByTitleStartingWith("Title").forEach(b ->
+        // System.out.println(b));
+        // boardRepository.findByTitleEndingWith("1").forEach(b ->
+        // System.out.println(b));
+        // boardRepository.findByWriterContaining("user").forEach(b ->
+        // System.out.println(b));
+        boardRepository.findByWriterContainingOrTitleContaining("user", "Title").forEach(b -> System.out.println(b));
+        // boardRepository.findByTitleContainingAndIdGreaterThan("Title", 41L).forEach(b
+        // -> System.out.println(b));
+        // boardRepository.findByIdGreaterThanOrderByIdDesc(0L).forEach(b ->
+        // System.out.println(b));
+
+        // 0(pageNumber) : 1 page 의미 , pageSize : 한 페이지에 보여질 게시물 개수
+        // Pageable pageable = PageRequest.of(0, 10);
+        // boardRepository.findByIdGreaterThanOrderByIdDesc(0L, pageable).forEach(b ->
+        // System.out.println(b));
+
+        // @Query 어노테이션
+        // boardRepository.findByWriterList("user").forEach(i -> System.out.println(i));
+
     }
 
 }
