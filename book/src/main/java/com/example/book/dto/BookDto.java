@@ -11,14 +11,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Builder
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Setter
+@Builder
+@Getter
 public class BookDto {
-
     private Long id;
 
     @NotBlank(message = "도서명을 입력해 주세요")
@@ -30,7 +29,7 @@ public class BookDto {
     @NotNull(message = "가격을 입력해 주세요")
     private Integer price;
 
-    @NotNull(message = "세일 가격을 입력해 주세요")
+    @NotNull(message = "할인가격을 입력해 주세요")
     private Integer salePrice;
 
     @NotBlank(message = "카테고리를 입력해 주세요")
@@ -42,5 +41,4 @@ public class BookDto {
     private LocalDateTime createdDateTime;
 
     private LocalDateTime lastModifiedDateTime;
-
 }

@@ -2,6 +2,7 @@ package com.example.book.entity;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,5 +25,4 @@ public abstract class BaseEntity {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDateTime; // 최종 수정 시간
-
 }

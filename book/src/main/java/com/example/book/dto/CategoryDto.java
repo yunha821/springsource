@@ -7,16 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Builder
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Setter
+@Builder
+@Getter
 public class CategoryDto {
 
     private Long id;
 
     private String categoryName;
-
 }

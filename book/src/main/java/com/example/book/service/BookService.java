@@ -4,21 +4,21 @@ import java.util.List;
 
 import com.example.book.dto.BookDto;
 import com.example.book.dto.CategoryDto;
+import com.example.book.dto.PageRequestDto;
+import com.example.book.dto.PageResultDto;
 import com.example.book.dto.PublisherDto;
 import com.example.book.entity.Book;
 import com.example.book.entity.Category;
 import com.example.book.entity.Publisher;
 
 public interface BookService {
-    // repository 메소드 호출 결과
-    // dto
 
     // crud
     Long create(BookDto dto);
 
     BookDto getRow(Long id);
 
-    List<BookDto> getList();
+    PageResultDto<BookDto, Book> getList(PageRequestDto requestDto);
 
     Long update(BookDto dto);
 
@@ -35,7 +35,7 @@ public interface BookService {
                 .build();
     }
 
-    public default Category dtoToEntity(CategoryDto dto) {
+    public default Category entityToDto(CategoryDto dto) {
         return Category.builder()
                 .id(dto.getId())
                 .name(dto.getCategoryName())
@@ -49,7 +49,7 @@ public interface BookService {
                 .build();
     }
 
-    public default Publisher dtoToEntity(PublisherDto dto) {
+    public default Publisher entityToDto(PublisherDto dto) {
         return Publisher.builder()
                 .id(dto.getId())
                 .name(dto.getPublisherName())
@@ -57,7 +57,6 @@ public interface BookService {
     }
 
     public default BookDto entityToDto(Book entity) {
-
         return BookDto.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
@@ -72,7 +71,6 @@ public interface BookService {
     }
 
     public default Book dtoToEntity(BookDto dto) {
-
         return Book.builder()
                 .id(dto.getId())
                 .title(dto.getTitle())
@@ -83,5 +81,4 @@ public interface BookService {
                 .publisher(Publisher.builder().id(Long.parseLong(dto.getPublisherName())).build())
                 .build();
     }
-
 }

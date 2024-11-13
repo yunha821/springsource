@@ -5,7 +5,7 @@
   </th:block>
 
   <div layout:fragment="content" class="container">
-    <h1>도서</h1>
+    <h1>도서 조회</h1>
     <form action="" method="post">
       <div class="mb-3 row">
         <label for="categoryName" class="col-sm-2 col-form-label">분류</label>
@@ -75,7 +75,7 @@
         </div>
       </div>
       <div class="mb-3 row">
-        <label for="salePrice" class="col-sm-2 col-form-label">할인 가격</label>
+        <label for="salePrice" class="col-sm-2 col-form-label">할인가격</label>
         <div class="col-sm-10">
           <input
             type="text"
@@ -98,13 +98,21 @@
             id="createdDateTime"
             name="createdDateTime"
             readonly
-            th:value="${#temporals.format(dto.createdDateTime, 'yyyy-MM-dd HH:mm')}"
+            th:value="${#temporals.format(dto.createdDateTime,'yyyy-MM-dd HH:mm')}"
           />
         </div>
       </div>
       <div>
-        <a th:href="@{modify(id=${dto.id})}" class="btn btn-primary">수정</a>
-        <a th:href="@{list}" class="btn btn-secondary">목록</a>
+        <a
+          th:href="@{modify(id=${dto.id}, page=${requestDto.page},size=${requestDto.size}, type=${requestDto.type}, keyword=${requestDto.keyword})}"
+          class="btn btn-primary"
+          >수정</a
+        >
+        <a
+          th:href="@{list(page=${requestDto.page},size=${requestDto.size}, type=${requestDto.type}, keyword=${requestDto.keyword})}"
+          class="btn btn-secondary"
+          >목록</a
+        >
       </div>
     </form>
   </div>
