@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,8 +23,9 @@ import com.example.book.entity.Book;
 import com.example.book.service.BookService;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RequiredArgsConstructor
 @Log4j2
@@ -55,7 +58,7 @@ public class BookController {
     public String postModify(BookDto dto, @ModelAttribute("requestDto") PageRequestDto requestDto,
             RedirectAttributes rttr) {
         log.info("도서 수정 요청 {}", dto);
-        log.info("requestDto {}", requestDto);
+        log.info("requestDto {} ", requestDto);
 
         Long id = bookService.update(dto);
 
@@ -71,10 +74,11 @@ public class BookController {
     @PostMapping("/remove")
     public String postMethodName(@RequestParam Long id, @ModelAttribute("requestDto") PageRequestDto requestDto,
             RedirectAttributes rttr) {
-        log.info("도서 삭제 요청 {}", id);
-        log.info("requestDto {}", requestDto);
+        log.info("도서 삭제 요청 {} ", id);
+        log.info("requestDto {} ", requestDto);
 
         bookService.delete(id);
+
         rttr.addAttribute("page", requestDto.getPage());
         rttr.addAttribute("size", requestDto.getSize());
         rttr.addAttribute("type", requestDto.getType());
@@ -84,7 +88,8 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public void getCreate(@ModelAttribute("dto") BookDto dto, Model model) {
+    public void getCreate(@ModelAttribute("dto") BookDto dto, Model model,
+            @ModelAttribute("requestDto") PageRequestDto requestDto) {
         log.info("도서 입력 폼 요청");
 
         List<CategoryDto> categories = bookService.getCateList();

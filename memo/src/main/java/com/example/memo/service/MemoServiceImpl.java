@@ -25,27 +25,25 @@ public class MemoServiceImpl implements MemoService {
     }
 
     @Override
-    public Long update(MemoDto dto) {
-
-        // Memo memo = memoRepository.findById().get();
-        // memo.setMemoText("수정한 memo");
-        Memo memo = dtoToEntity(dto);
-        return memoRepository.save(memo).getMno();
-    }
-
-    @Override
     public MemoDto read(Long id) {
-
         Memo memo = memoRepository.findById(id).get();
-        return entityToDto(memo);
 
+        return entityToDto(memo);
     }
 
     @Override
     public List<MemoDto> list() {
-
         List<Memo> list = memoRepository.findAll();
+
         return list.stream().map(memo -> entityToDto(memo)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Long update(MemoDto dto) {
+        // Memo memo = memoRepository.findById(27L).get();
+        // memo.setMemoText("memo 수정");
+        Memo memo = dtoToEntity(dto);
+        return memoRepository.save(memo).getMno();
     }
 
     @Override

@@ -18,13 +18,14 @@
             </p>
             <p
               class="card-text"
-              th:text="${#temporals.format(dto.lastModifiedDateTime, 'yyyy-MM-dd HH:mm')}"
+              th:text="${#temporals.format(dto.lastModifiedDateTime,'yyyy-MM-dd HH:mm')}"
             ></p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <th:block layout:fragment="script">
     <script>
       //스크립트 작성

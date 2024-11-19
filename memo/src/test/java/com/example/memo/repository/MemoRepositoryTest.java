@@ -18,45 +18,48 @@ public class MemoRepositoryTest {
     @Test
     public void testMemoInsert() {
 
-        IntStream.rangeClosed(1, 10).forEach(i -> {
-            Memo memo = Memo.builder()
-                    .memoText("memo" + i)
-                    .build();
+        IntStream.rangeClosed(1, 100).forEach(i -> {
+            Memo memo = Memo.builder().memoText("memo text" + i).build();
             memoRepository.save(memo);
         });
     }
 
     @Test
     public void testMemoRead() {
-        // 특정 메모(5번) 가져오기
-        Memo memo = memoRepository.findById(25L).get();
+        // 6번 메모 가져오기
+        Memo memo = memoRepository.findById(6L).get();
         System.out.println(memo);
+
+        System.out.println();
 
         // 전체 메모 가져오기
         List<Memo> list = memoRepository.findAll();
-        list.forEach(i -> System.out.println(i));
-
+        list.forEach(m -> System.out.println(m));
     }
 
     @Test
     public void testMemoUpdate() {
+        // 27번 메모 내용 수정
         Memo memo = memoRepository.findById(27L).get();
-        memo.setMemoText("수정한 memo");
+        memo.setMemoText("memo 수정");
         memoRepository.save(memo);
     }
 
     @Test
     public void testMemoDelete() {
-        memoRepository.deleteById(21L);
+        // 메모 삭제
+        memoRepository.deleteById(30L);
     }
 
+    // 쿼리메소드 테스트
     @Test
-    public void testMemoList() {
+    public void testQueryMethod() {
+        // memoRepository.findByMnoLessThan(30L).forEach(m -> System.out.println(m));
 
-        // memoRepository.findByMnoLessThan(22L).forEach(i -> System.out.println(i));
-        // memoRepository.findByMnoLessThanOrderByMnoDesc(26L).forEach(i ->
-        // System.out.println(i));
-        memoRepository.findByMnoBetweenOrderByMnoDesc(30L, 35L).forEach(i -> System.out.println(i));
+        // memoRepository.findByMnoLessThanOrderByMnoDesc(50L).forEach(m ->
+        // System.out.println(m));
+
+        memoRepository.findByMnoBetween(50L, 100L).forEach(m -> System.out.println(m));
     }
 
 }
