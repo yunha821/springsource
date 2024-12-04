@@ -11,11 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
 
 import com.example.board.entity.Board;
 import com.example.board.entity.Member;
 import com.example.board.entity.Reply;
+import com.example.board.entity.constant.MemberRole;
 
 import jakarta.transaction.Transactional;
 
@@ -28,6 +30,8 @@ public class BoardRepositoryTest {
     private MemberRepository memberRepository;
     @Autowired
     private ReplyRepository replyRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void testInsertMember() {
@@ -35,8 +39,9 @@ public class BoardRepositoryTest {
         IntStream.rangeClosed(1, 30).forEach(i -> {
             Member member = Member.builder()
                     .email("user" + i + "@gmail.com")
-                    .password("1111")
+                    .password(passwordEncoder.encode("1111"))
                     .name("user" + i)
+                    .role(MemberRole.MEMBER)
                     .build();
             memberRepository.save(member);
         });
@@ -64,7 +69,7 @@ public class BoardRepositoryTest {
         // 100개
         IntStream.rangeClosed(1, 100).forEach(i -> {
 
-            long bno = (long) (Math.random() * 100) + 1;
+            long bno = (long) (Math.random() * 100);
             Board board = Board.builder().bno(bno).build();
 
             Reply reply = Reply.builder()
