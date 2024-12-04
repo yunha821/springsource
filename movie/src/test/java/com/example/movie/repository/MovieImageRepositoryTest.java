@@ -45,14 +45,11 @@ public class MovieImageRepositoryTest {
 
     @Test
     public void testRow() {
-
         List<Object[]> result = movieImageRepository.getMovieRow(1L);
 
         for (Object[] objects : result) {
-
             System.out.println(Arrays.toString(objects));
-
         }
-
     }
+
 }

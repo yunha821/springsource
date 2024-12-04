@@ -65,27 +65,23 @@ public class MovieRepositoryTest {
     @Test
     public void testRemove() {
 
-        Movie movie = Movie.builder()
-                .mno(50L)
-                .build();
+        Movie movie = Movie.builder().mno(50L).build();
 
         movieImageRepository.deleteByMovie(movie);
 
         reviewRepository.deleteByMovie(movie);
 
         movieRepository.delete(movie);
-
     }
 
-    @Commit
-    @Transactional
+    // @Commit
+    // @Transactional
     @Test
     public void testRemove2() {
 
-        Movie movie = movieRepository.findById(48L).get();
+        Movie movie = movieRepository.findById(49L).get();
 
         movieRepository.delete(movie);
-
     }
 
 }

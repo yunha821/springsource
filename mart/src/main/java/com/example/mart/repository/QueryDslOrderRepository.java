@@ -2,8 +2,8 @@ package com.example.mart.repository;
 
 import java.util.List;
 
-import com.example.mart.entitiy.item.Item;
-import com.example.mart.entitiy.item.Member;
+import com.example.mart.entity.item.Item;
+import com.example.mart.entity.item.Member;
 
 public interface QueryDslOrderRepository {
 
@@ -13,4 +13,5 @@ public interface QueryDslOrderRepository {
 
     List<Object[]> joinTest();
 
+    List<Object[]> subQueryTest();
 }
