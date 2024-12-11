@@ -5,11 +5,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,8 +25,9 @@ import com.example.movie.service.MemberService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -97,8 +102,9 @@ public class MemberController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/leave")
-    public String postLeave(PasswordDto passwordDto, boolean check, HttpSession session, RedirectAttributes rttr) {
-        log.info("회원 탈퇴 요청 {}, {}", passwordDto, check);
+    public String postLeave(PasswordDto passwordDto, boolean check, HttpSession session,
+            RedirectAttributes rttr) {
+        log.info("회원탈퇴 요청 {}, {}", passwordDto, check);
 
         if (!check) {
             rttr.addFlashAttribute("error", "체크 표시를 확인해 주세요");
@@ -121,19 +127,22 @@ public class MemberController {
     @GetMapping("/register")
     public void getRegister(MemberDto memberDto, @ModelAttribute("requestDto") PageRequestDto pageRequestDto) {
         log.info("회원가입 폼 요청");
-
     }
 
     @PostMapping("/register")
     public String postRegister(@Valid MemberDto memberDto, BindingResult result, boolean check,
-            @ModelAttribute("requestDto") PageRequestDto pageRequestDto) {
-
+            @ModelAttribute("requestDto") PageRequestDto pageRequestDto, Model model) {
         log.info("회원가입 요청 {}", memberDto);
 
         if (result.hasErrors()) {
-
             return "/member/register";
         }
+
+        if (!check) {
+            model.addAttribute("check", "약관에 동의하셔야 합니다.");
+            return "/member/register"; // forward
+        }
+
         memberService.register(memberDto);
 
         return "redirect:/member/login";
