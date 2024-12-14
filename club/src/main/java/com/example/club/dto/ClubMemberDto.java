@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ClubMemberDto {
 
     // email 형식인지 검증, 비어 있으면 안됨
-    // password, name 비어 있으면 안됨
+    // password, name 비어 있으면 안됨 
 
     @Email
     @NotBlank(message = "이메일을 입력하세요")
